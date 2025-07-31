@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Lab - Projectile Motion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' }
+                        },
+                        glow: {
+                            'from': { 'box-shadow': '0 0 24px #7f5af0' },
+                            'to': { 'box-shadow': '0 0 35px #2cb67d, 0 0 50px #7f5af0' }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: solid 1.5px rgba(255,255,255,0.22);
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, #56ccf2 0%, #2f80ed 50%, #c471f5 100%);
+            background-size: 400% 400%;
+            animation: gradient-x 15s ease infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg overflow-x-hidden">
+    <!-- Animated Background Shapes -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-16 left-8 w-60 h-60 bg-blue-200 rounded-full blur-2xl opacity-60 animate-float"></div>
+        <div class="absolute top-36 right-6 w-72 h-72 bg-purple-200 rounded-full blur-2xl opacity-70 animate-float" style="animation-delay:2s"></div>
+        <div class="absolute bottom-10 left-28 w-56 h-56 bg-teal-200 rounded-full blur-2xl opacity-60 animate-float" style="animation-delay:4s"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex flex-col items-center py-16">
+        <h1 class="text-5xl font-bold mb-4 text-white text-center drop-shadow-lg animate-glow">
+            <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-teal-300 bg-clip-text text-transparent">
+                Projectile Motion Simulation
+            </span>
+        </h1>
+        <p class="text-white/85 text-lg mb-8 text-center max-w-2xl">
+            Observe and experiment with projectile motion! Change angle, speed, and more to visualize real-time physics concepts.
+        </p>
+        <div class="glass rounded-3xl p-8 shadow-2xl max-w-5xl w-full">
+            <!-- Controls -->
+            <div class="flex justify-center mb-6 gap-8">
+                <button class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-800 text-white rounded-xl
+                             hover:from-blue-600 hover:to-teal-600 transition-all duration-300 shadow-lg
+                             relative overflow-hidden outline-none focus:ring-2 focus:ring-teal-400"
+                        onclick="alert('Try changing the angle, speed, or mass parameters to see how projectile motion changes!')">
+                    📖 Instructions
+                </button>
+                <button class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl
+                             hover:from-purple-600 hover:to-pink-700 transition-all duration-300 shadow-lg
+                             relative overflow-hidden outline-none focus:ring-2 focus:ring-pink-300"
+                        onclick="document.getElementById('simulation-iframe').src=document.getElementById('simulation-iframe').src;">
+                    🔄 Reset
+                </button>
+                <button id="fullscreen-btn"
+                        class="px-6 py-3 bg-gradient-to-r from-teal-400 to-green-600 text-white rounded-xl
+                               hover:from-teal-500 hover:to-green-700 transition-all duration-300 shadow-lg
+                               relative overflow-hidden outline-none focus:ring-2 focus:ring-green-300"
+                        type="button">
+                    🖥️ Fullscreen
+                </button>
+            </div>
+            <!-- Iframe with overlay -->
+            <div class="relative">
+                <div class="bg-white/20 p-3 rounded-xl backdrop-blur-lg">
+                    <div class="relative rounded-2xl shadow-2xl overflow-hidden">
+                        <iframe 
+                            id="simulation-iframe"
+                            src="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_en.html"
+                            width="100%"
+                            height="600"
+                            allowfullscreen
+                            class="w-full rounded-xl border-0">
+                        </iframe>
+                        <!-- Loading overlay -->
+                        <div id="loading-overlay" class="absolute inset-0 bg-gradient-to-br from-blue-700/85 to-purple-600/85 flex items-center justify-center rounded-xl">
+                            <div class="text-center text-white">
+                                <div class="animate-spin rounded-full h-14 w-14 border-t-2 border-b-2 border-white mx-auto mb-3"></div>
+                                <p class="text-base font-semibold">Loading Simulation...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer text -->
+            <p class="text-center text-white/80 mt-6">Powered by PhET Interactive Simulations</p>
+        </div>
+    </main>
+    
+    <script>
+        // Hide loading overlay when iframe is ready
+        const iframe = document.getElementById('simulation-iframe');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        iframe.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 350);
+            }, 900);
+        });
+
+        // Fullscreen button logic
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const iframe = document.getElementById('simulation-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        });
+
+        // Ripple effect for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.background = 'rgba(255,255,255,0.45)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.width = ripple.style.height = Math.max(this.offsetWidth, this.offsetHeight) + 'px';
+                ripple.style.left = e.clientX - this.getBoundingClientRect().left - this.offsetWidth / 2 + 'px';
+                ripple.style.top = e.clientY - this.getBoundingClientRect().top - this.offsetHeight / 2 + 'px';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+        // Ripple animation CSS
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+    </script>
+</body>
+</html>

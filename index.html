@@ -3,10 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulation</title>
-    <a href="sim1.html">Simulation1</a>
+    <title>Physics Simulation Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass {
+            background: rgba(255,255,255,0.13);
+            backdrop-filter: blur(8px);
+            border: solid 1.5px rgba(255,255,255,0.25);
+        }
+    </style>
 </head>
-<body>
-    
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-300 px-4">
+
+    <div class="glass rounded-3xl p-10 shadow-2xl max-w-md w-full">
+        <h1 class="text-white text-4xl font-bold mb-8 text-center drop-shadow-lg">
+            Physics Simulation Lab
+        </h1>
+        <nav>
+            <ul class="space-y-5">
+                <li>
+                    <a href="sim1.html"
+                       class="block px-7 py-4 rounded-xl bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400 text-white font-semibold text-lg text-center shadow-lg hover:scale-105 hover:from-blue-500 hover:to-pink-500 transition-all duration-300 outline-none focus:ring-2 focus:ring-pink-300">
+                        Simulation 1: Balancing Act
+                    </a>
+                </li>
+                <li>
+                    <a href="sim2.html"
+                       class="block px-7 py-4 rounded-xl bg-gradient-to-r from-pink-400 via-yellow-500 to-orange-500 text-white font-semibold text-lg text-center shadow-lg hover:scale-105 hover:from-pink-500 hover:to-orange-600 transition-all duration-300 outline-none focus:ring-2 focus:ring-orange-200">
+                        Simulation 2: Projectile Motion
+                    </a>
+                </li>
+                <li>
+                    <a href="sim3.html"
+                       class="block px-7 py-4 rounded-xl bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 text-white font-semibold text-lg text-center shadow-lg hover:scale-105 hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 outline-none focus:ring-2 focus:ring-blue-200">
+                        Simulation 3: Wave Interference
+                    </a>
+                </li>
+                <li>
+                    <a href="sim4.html"
+                       class="block px-7 py-4 rounded-xl bg-gradient-to-r from-lime-300 via-green-400 to-green-600 text-white font-semibold text-lg text-center shadow-lg hover:scale-105 hover:from-green-400 hover:to-green-700 transition-all duration-300 outline-none focus:ring-2 focus:ring-green-200">
+                        Simulation 4: Circuit Construction Kit: DC Lab
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <p class="text-white text-center mt-7 opacity-70">Explore interactive physics experiments!</p>
+    </div>
+
 </body>
 </html>

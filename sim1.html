@@ -44,7 +44,6 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
         .gradient-bg {
             background: linear-gradient(-45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
             background-size: 400% 400%;
@@ -53,11 +52,11 @@
     </style>
 </head>
 <body class="min-h-screen gradient-bg overflow-x-hidden">
-    <!-- Animated Background Elements -->
+    <!-- Animated Blobs -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-10 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
-        <div class="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-20 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay:2s"></div>
+        <div class="absolute bottom-20 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay:4s"></div>
     </div>
 
     <!-- Header -->
@@ -77,10 +76,10 @@
                         <div class="px-4 py-2 glass rounded-full text-white/80 text-sm animate-float">
                             🔬 Interactive Learning
                         </div>
-                        <div class="px-4 py-2 glass rounded-full text-white/80 text-sm animate-float" style="animation-delay: 1s;">
+                        <div class="px-4 py-2 glass rounded-full text-white/80 text-sm animate-float" style="animation-delay:1s;">
                             ⚖️ Balance & Forces
                         </div>
-                        <div class="px-4 py-2 glass rounded-full text-white/80 text-sm animate-float" style="animation-delay: 2s;">
+                        <div class="px-4 py-2 glass rounded-full text-white/80 text-sm animate-float" style="animation-delay:2s;">
                             🎯 Real-time Physics
                         </div>
                     </div>
@@ -89,7 +88,7 @@
         </div>
     </header>
 
-    <!-- Main Simulation Container -->
+    <!-- Main -->
     <main class="relative z-10 flex-1">
         <div class="container mx-auto px-6 py-8">
             <!-- Simulation Card -->
@@ -105,33 +104,38 @@
                         </p>
                     </div>
 
-                    <!-- Simulation Controls -->
-                    <div class="flex justify-center mb-6">
-                        <div class="flex space-x-4">
-                            <button class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                                📊 Instructions
-                            </button>
-                            <button class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-xl hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                                🔄 Reset
-                            </button>
-                            <button class="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                                📱 Fullscreen
-                            </button>
-                        </div>
+                    <!-- Controls -->
+                    <div class="flex justify-center mb-6 gap-8">
+                        <button
+                            class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden outline-none focus:ring-2 focus:ring-purple-400"
+                            onclick="alert('Try adding objects to either side of the beam to explore balance and torque!')">
+                            📊 Instructions
+                        </button>
+                        <button
+                            class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-xl hover:from-green-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden outline-none focus:ring-2 focus:ring-green-300"
+                            onclick="document.getElementById('simulation-iframe').src=document.getElementById('simulation-iframe').src;">
+                            🔄 Reset
+                        </button>
+                        <button
+                            id="fullscreen-btn"
+                            class="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl hover:from-orange-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden outline-none focus:ring-2 focus:ring-red-300"
+                            type="button">
+                            📱 Fullscreen
+                        </button>
                     </div>
 
-                    <!-- Physics Simulation Iframe -->
+                    <!-- Iframe and Loading -->
                     <div class="relative">
                         <div class="bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
                             <div class="relative overflow-hidden rounded-xl shadow-2xl">
                                 <iframe 
+                                    id="simulation-iframe"
                                     src="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html"
                                     width="100%"
                                     height="600"
                                     allowfullscreen
                                     class="w-full rounded-xl border-0">
                                 </iframe>
-                                
                                 <!-- Loading Overlay -->
                                 <div id="loading-overlay" class="absolute inset-0 bg-gradient-to-br from-blue-600/80 to-purple-600/80 flex items-center justify-center rounded-xl">
                                     <div class="text-center text-white">
@@ -143,7 +147,7 @@
                         </div>
                     </div>
 
-                    <!-- Features Grid -->
+                    <!-- Feature Cards -->
                     <div class="grid md:grid-cols-3 gap-6 mt-8">
                         <div class="glass rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
                             <div class="text-4xl mb-3">⚖️</div>
@@ -171,7 +175,7 @@
         <div class="container mx-auto px-6">
             <div class="glass rounded-2xl p-6">
                 <div class="text-center text-white/80">
-                    <p class="text-lg font-semibold mb-2 ">Physics Simulation Lab</p>
+                    <p class="text-lg font-semibold mb-2">Physics Simulation Lab</p>
                     <p class="text-sm">Powered by PhET Interactive Simulations | University of Colorado Boulder</p>
                     <div class="mt-4 flex justify-center space-x-6">
                         <a href="#" class="hover:text-white transition-colors duration-300">🔬 More Simulations</a>
@@ -185,9 +189,8 @@
 
     <script>
         // Hide loading overlay when iframe loads
-        const iframe = document.querySelector('iframe');
+        const iframe = document.getElementById('simulation-iframe');
         const loadingOverlay = document.getElementById('loading-overlay');
-        
         iframe.addEventListener('load', () => {
             setTimeout(() => {
                 loadingOverlay.style.opacity = '0';
@@ -197,39 +200,40 @@
             }, 1000);
         });
 
-        // Add some interactive JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click effects to buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // Create ripple effect
-                    const ripple = document.createElement('span');
-                    ripple.style.position = 'absolute';
-                    ripple.style.background = 'rgba(255,255,255,0.6)';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.pointerEvents = 'none';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'ripple 0.6s linear';
-                    
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = e.clientX - rect.left - size / 2 + 'px';
-                    ripple.style.top = e.clientY - rect.top - size / 2 + 'px';
-                    
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
+        // Fullscreen Button Functionality
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const iframe = document.getElementById('simulation-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) { // Safari
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE11
+                iframe.msRequestFullscreen();
+            }
         });
 
-        // Add CSS for ripple effect
+        // Ripple Effect for Buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.background = 'rgba(255,255,255,0.6)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(this.offsetWidth, this.offsetHeight);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = e.clientX - rect.left - size / 2 + 'px';
+                ripple.style.top = e.clientY - rect.top - size / 2 + 'px';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+        // Ripple animation style
         const style = document.createElement('style');
         style.textContent = `
             @keyframes ripple {
